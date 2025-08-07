@@ -36,5 +36,9 @@ MIMO 시스템 PID 튜닝 전략 3가지
 
 
 - 적분 와인드업 기법들 ( Anti-windup ) : 액추에이터가 포화상태일때, I항이 더이상 누적되지 않도록 막는 매커니즘.
-  - 적분항 클램핑(Integral Clamping) : 적분 누적값을 미리 정의한 상한(I_max)/하한(I_min) 범위 내로 제한 `integral = min(max(integral, I_min), I_max)`
+- PV가 처음 0에서 출발할 때부터 적분항에 (integral += error·dt) 오차가 계속 누적되어 결과값이 +100까지 커졌다.
+- 10초에 Setpoint가 0으로 돌아왔음에도 불구하고, PV가 0을 훨씬 지나쳐 심각한 언더슈트 발생.<br> 이는 거대하게 '감겨버린(wound up)' Integral 값 때문.
+  <img width="1022" height="531" alt="image" src="https://github.com/user-attachments/assets/f10a83a7-3902-4a03-bc60-c0fd1f5fc692" />
+
+  - 적분항 클램핑(Integral Clamping) : 적분 누적값을 미리 정의한 상한(I_max)/하한(I_min) 범위 내로 제한하여 해결가능. `integral = min(max(integral, I_min), I_max)`
   - 조건부 적분(Conditional Integration)	: 오차가 일정 임계값을 초과하거나 제어 출력이 포화 상태일 때 적분 누적을 일시 중지
