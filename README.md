@@ -26,7 +26,15 @@ MIMO 시스템 PID 튜닝 전략 3가지
 선형-이차 조절기(LQR)
 - LQR : 수학적으로 정의된 비용함수 'J'를 최소화 하는것이 "최적"이라고 간주하며, 제어 법칙 u(t)를 찾는것.
 - 이득 스케쥴링 : 선형 제어 기법인 PID, LQR을 비선형 시스템 적용하는 강력한 기법.
-  
+
+미분 킥 (Derivative Kick)
+- 순간적으로 Setpoint가 변한다면, `error = setpoint – PV` 계산에서 에러변화율이 매우커져 미분항이 매우 커진다.
+- 미분 대상을 `derivative = (pv - self.previous_pv) / dt` pv로 바꿔서 해결가능.
+        `d_term = -self.Kd * derivative`
+- Setpoint가 변경되는 5초 시점에서 Controller Output이 비정상적으로 크게 튀는 것을 볼 수 있습니다. 이것이 바로 '미분 킥'입니다.<br>
+  <img width="1007" height="541" alt="image" src="https://github.com/user-attachments/assets/ffa8b40c-ff9e-4daf-b205-1f197daacaaf" />
+
+
 - 적분 와인드업 기법들 ( Anti-windup ) : 액추에이터가 포화상태일때, I항이 더이상 누적되지 않도록 막는 매커니즘.
   - 적분항 클램핑(Integral Clamping) : 적분 누적값을 미리 정의한 상한(I_max)/하한(I_min) 범위 내로 제한 `integral = min(max(integral, I_min), I_max)`
   - 조건부 적분(Conditional Integration)	: 오차가 일정 임계값을 초과하거나 제어 출력이 포화 상태일 때 적분 누적을 일시 중지
