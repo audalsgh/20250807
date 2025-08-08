@@ -1,6 +1,6 @@
 # 34일차 - PID 제어 기법 및 응용
+[day4_lecture.pdf](https://github.com/user-attachments/files/21676260/day4_lecture.pdf)<br>
 https://apm.byu.edu/prism/index.php/Site/OnlineCourses
-
 
 ## PID 제어 기본과 디지털 구현
 1. 배경 : 현실의 물리 시스템 중 질량- 스프링 - 댐퍼 시스템
